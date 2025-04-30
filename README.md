@@ -14,33 +14,20 @@ Make sure you have the following installed:
    ```bash
    git clone https://github.com/username/credit-score-project.git
    cd credit-score-project
-2.Create a virtual environment (optional but recommended):
-
-bash
-Copy
-Edit
-python3 -m venv venv
+2.Create a virtual environment:
+   python3 -m venv venv
 
 3.Activate the virtual environment:
 
-On Windows:
+ On Windows:
+   venv\Scripts\activate
+   
+ On Mac/Linux:
+   source venv/bin/activate
 
-bash
-Copy
-Edit
-venv\Scripts\activate
-On Mac/Linux:
-
-bash
-Copy
-Edit
-source venv/bin/activate
 4.Install the required dependencies:
 
-bash
-Copy
-Edit
-pip install -r requirements.txt
+   pip install -r requirements.txt
 
 5.For running the web app
-python app.py 
+   python app.py 
