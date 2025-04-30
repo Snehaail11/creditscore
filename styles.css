@@ -1,0 +1,453 @@
+:root {
+    --primary-color: #764ba2;
+    --secondary-color: #667eea;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --text-color: #2c3e50;
+    --light-gray: #f5f7fa;
+    --border-color: #e0e0e0;
+    --progress-bg: var(--light-gray);
+    --progress-bar: var(--primary-color);
+    --foreground: var(--text-color);
+    --card-bg: white;
+    --primary: var(--primary-color);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    color: var(--text-color);
+}
+
+.container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+/* Score Display Section */
+.score-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.score-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    margin: 2rem auto;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.score-circle:hover {
+    transform: scale(1.05);
+}
+
+.score-number {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* Score Range */
+.score-range {
+    margin: 2rem 0;
+}
+
+.range-bar {
+    display: flex;
+    height: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.range-segment {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.range-segment:hover {
+    transform: scaleY(1.1);
+}
+
+.range-label {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+}
+
+/* Score Breakdown */
+.score-breakdown {
+    background: var(--light-gray);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.breakdown-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.breakdown-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.factor-name {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.factor-bar {
+    height: 8px;
+    background: var(--light-gray);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0.5rem 0;
+}
+
+.factor-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.factor-points {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: right;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Simulation Section */
+.simulation-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+}
+
+/* Improvement Section */
+.improvement-options {
+    display: grid;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.improvement-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: var(--light-gray);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Improvement Progress */
+.improvement-progress {
+    height: 10px;
+    background: var(--light-gray);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 1rem;
+}
+
+.improvement-progress .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+/* Improvement Points */
+.improvement-points {
+    position: absolute;
+    right: 0;
+    top: -1.5rem;
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+/* Improvements List */
+.improvements-list ul {
+    list-style: none;
+    margin-top: 0.5rem;
+}
+
+.simulation-results {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--light-gray);
+    border-radius: 10px;
+}
+
+.score-comparison {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.current-score, .projected-score {
+    text-align: center;
+}
+
+.score-arrow {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--light-gray);
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    margin: 2rem auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error-message {
+    background: var(--danger-color);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    text-align: center;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .score-comparison {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .score-arrow {
+        transform: rotate(90deg);
+    }
+
+    .score-circle {
+        width: 180px;
+        height: 180px;
+    }
+
+    .score-number {
+        font-size: 2.5rem;
+    }
+}
+
+/* Score Breakdown */
+.progress-container {
+    background: var(--progress-bg);
+    border-radius: 8px;
+    height: 18px;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+.progress-bar {
+    background: var(--progress-bar);
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s;
+}
+.progress-label {
+    color: var(--foreground);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+/* Simulation Improvements */
+.simulation-results,
+.simulation-section,
+.improvements-list {
+    background: var(--card-bg) !important;
+    color: var(--foreground) !important;
+}
+.simulation-section label,
+.simulation-results .improvements-list {
+    color: var(--foreground);
+}
+.simulation-section input[type="checkbox"] {
+    accent-color: var(--primary);
+}
+
+/* --- Fix for dark mode visibility --- */
+.breakdown-item,
+.score-breakdown,
+.simulation-results,
+.simulation-section,
+.improvements-list {
+    background: var(--card-bg) !important;
+    color: var(--foreground) !important;
+}
+
+.factor-name,
+.factor-points,
+.improvements-list li,
+.simulation-section label {
+    color: var(--foreground) !important;
+}
+
+.factor-bar,
+.improvement-progress {
+    background: var(--progress-bg) !important;
+}
+
+.factor-progress,
+.improvement-progress .progress-bar {
+    background: var(--progress-bar) !important;
+}
+
+.improvements-list li:before {
+    color: var(--success-color) !important;
+}

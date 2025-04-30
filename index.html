@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Score Predictor & Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 2rem; color: var(--primary-color);">Credit Score Predictor</h1>
+
+        <!-- Prediction Form -->
+        <form id="predictionForm">
+            <div class="form-grid">
+                <!-- Input Fields -->
+                <div class="form-group">
+                    <label for="annual_income">Annual Income ($)</label>
+                    <input type="number" id="annual_income" name="annual_income" required min="0" placeholder="e.g., 50000">
+                </div>
+                <div class="form-group">
+                    <label for="num_credit_card">Number of Credit Cards</label>
+                    <input type="number" id="num_credit_card" name="num_credit_card" required min="0" placeholder="e.g., 2">
+                </div>
+                <div class="form-group">
+                    <label for="num_of_loan">Number of Loans</label>
+                    <input type="number" id="num_of_loan" name="num_of_loan" required min="0" placeholder="e.g., 1">
+                </div>
+                <div class="form-group">
+                    <label for="num_of_delayed_payment">Number of Delayed Payments</label>
+                    <input type="number" id="num_of_delayed_payment" name="num_of_delayed_payment" required min="0" placeholder="e.g., 0">
+                </div>
+                <div class="form-group">
+                    <label for="credit_utilization_ratio">Credit Utilization Ratio (%)</label>
+                    <input type="number" id="credit_utilization_ratio" name="credit_utilization_ratio" required min="0" max="100" step="0.01" placeholder="e.g., 30">
+                </div>
+                <div class="form-group">
+                    <label for="credit_history_age">Credit History Age (months)</label>
+                    <input type="number" id="credit_history_age" name="credit_history_age" required min="0" placeholder="e.g., 60">
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Predict Credit Score</button>
+        </form>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner" style="display: none;"></div>
+
+        <!-- Prediction Results -->
+        <div id="results" style="display: none;">
+            <div class="score-section">
+                <div class="score-circle" id="scoreCircle">
+                    <span class="score-number" id="creditScore"></span>
+                    <span class="score-rating" id="scoreRating"></span>
+                    <div id="scoreBadge"></div>
+                    <div id="achievementBadge"></div>
+                </div>
+                <div id="predictionMessage" style="margin-top: 1rem; font-weight: 600; color: var(--primary-color);"></div>
+            </div>
+
+            <!-- Score Range -->
+            <div class="score-range">
+                <h3>Credit Score Range</h3>
+                <div class="range-bar">
+                    <div class="range-segment" style="width: 20%; background: #e74c3c;"><span class="range-label">Poor<br>300-579</span></div>
+                    <div class="range-segment" style="width: 20%; background: #f39c12;"><span class="range-label">Fair<br>580-669</span></div>
+                    <div class="range-segment" style="width: 20%; background: #f1c40f;"><span class="range-label">Good<br>670-739</span></div>
+                    <div class="range-segment" style="width: 20%; background: #2ecc71;"><span class="range-label">Very Good<br>740-799</span></div>
+                    <div class="range-segment" style="width: 20%; background: #27ae60;"><span class="range-label">Excellent<br>800-850</span></div>
+                </div>
+            </div>
+
+            <!-- Score Breakdown -->
+            <div class="score-breakdown">
+                <h3>Score Breakdown</h3>
+                <div class="breakdown-grid">
+                    <div class="breakdown-item">
+                        <div class="factor-name">Payment History</div>
+                        <div class="factor-bar"><div class="factor-progress" id="paymentHistoryBar"></div></div>
+                        <div class="factor-points" id="paymentHistoryPoints"></div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="factor-name">Credit Utilization</div>
+                        <div class="factor-bar"><div class="factor-progress" id="creditUtilizationBar"></div></div>
+                        <div class="factor-points" id="creditUtilizationPoints"></div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="factor-name">Credit Age</div>
+                        <div class="factor-bar"><div class="factor-progress" id="creditAgeBar"></div></div>
+                        <div class="factor-points" id="creditAgePoints"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Section -->
+        <div id="simulationSection" class="simulation-section" style="display: none;">
+            <h3>Simulate Score Improvement</h3>
+            <p>Select actions you plan to take to improve your credit score:</p>
+            
+            <form id="simulationForm">
+                <div class="improvement-options">
+                    <label class="improvement-checkbox"><input type="checkbox" name="pay_bills_on_time"> Make all payments on time for the next 6 months</label>
+                    <label class="improvement-checkbox"><input type="checkbox" name="reduce_credit_utilization"> Reduce credit utilization to below 30%</label>
+                    <label class="improvement-checkbox"><input type="checkbox" name="avoid_new_credit"> Avoid new credit applications for 6 months</label>
+                </div>
+                <button type="submit" class="btn-primary">Simulate Improvements</button>
+            </form>
+
+            <!-- Simulation Results -->
+            <div id="simulationResults" class="simulation-results" style="display: none;">
+                <div class="score-comparison">
+                    <div class="current-score">
+                        <span class="label">Current Score</span>
+                        <span class="value" id="currentScoreValue"></span>
+                    </div>
+                    <div class="score-arrow">→</div>
+                    <div class="projected-score">
+                        <span class="label">Projected Score</span>
+                        <span class="value" id="projectedScoreValue"></span>
+                    </div>
+                </div>
+                <div id="simulationMessage" style="margin-top: 1rem; font-weight: 600; color: var(--success-color); text-align: center;"></div>
+                <div class="improvement-progress">
+                    <div class="progress-bar" id="improvementProgressBar"></div>
+                    <span class="improvement-points" id="improvementPoints">+0 points</span>
+                </div>
+                <div class="improvements-list">
+                    <h4>Selected Improvements:</h4>
+                    <ul id="selectedImprovements"></ul>
+                </div>
+                <!-- 📥 Download Button -->
+                <button id="downloadResult" class="btn-primary" style="margin-top: 1rem; display: none;">📥 Download Full Results</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast + Error -->
+    <div id="toast" class="toast" style="display: none;"></div>
+    <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
