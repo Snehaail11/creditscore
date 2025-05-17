@@ -12,7 +12,7 @@ Make sure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/credit-score-project.git
+   git clone https://github.com/snehaail11/credit-score-project.git
    cd credit-score-project
 2.Create a virtual environment:
    python3 -m venv venv
