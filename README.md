@@ -1,33 +1,23 @@
-# Credit Score Prediction Project
+# Credit Score Prediction
 
-This project predicts a person's credit score based on their financial data using machine learning models. The goal is to provide insights into how various financial factors can impact an individual's creditworthiness. Then it simulates the score what it would be after 6 months by providing improvements.
+This project predicts an individual's credit score based on their financial behavior and personal data. It simulates a real-world use case where users can input their information and receive a predicted credit score, along with suggestions for improvement.
 
-## Prerequisites
+## What I Did
 
-Make sure you have the following installed:
-- Python 3.x
-- pip (Python package manager)
+- Cleaned and preprocessed raw financial data, handling missing values and outliers.
+- Performed feature selection to identify key indicators of creditworthiness.
+- Trained and evaluated multiple models, including Random Forest, AdaBoost, and Gradient Boosting.
+- Finalized Random Forest after comparing model performance and interpretability.
+- Built a simulation to show how changes in certain inputs could improve credit scores.
 
-## Installation
+## Why This Project Matters
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/snehaail11/credit-score-project.git
-   cd credit-score-project
-2.Create a virtual environment:
-   python3 -m venv venv
+Credit scoring is a key part of financial decision-making. This project shows how I can take messy data, turn it into something usable, and build a solution that helps users understand and improve their standing.
 
-3.Activate the virtual environment:
+## Tools Used
 
- On Windows:
-   venv\Scripts\activate
-   
- On Mac/Linux:
-   source venv/bin/activate
-
-4.Install the required dependencies:
-
-   pip install -r requirements.txt
-
-5.For running the web app
-   python app.py 
+- Python (Pandas, NumPy, Scikit-learn)
+- SMOTE for handling class imbalance
+- Feature importance and model explainability tools
+- Flask for frontend (if included)
+- HTML,CSS,JS for interface styling 
